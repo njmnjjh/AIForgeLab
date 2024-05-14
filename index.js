@@ -1,17 +1,12 @@
-function combinationSum(candidates, target) {
-  const result = [];
-  backtrack(0, [], 0);
-  return result;
-  function backtrack(start, current, sum) {
-    if (sum === target) {
-      result.push([...current]);
-      return;
+function lengthOfLIS(nums) {
+  if (nums.length === 0) return 0;
+  const dp = new Array(nums.length).fill(1);
+  let max = 1;
+  for (let i = 1; i < nums.length; i++) {
+    for (let j = 0; j < i; j++) {
+      if (nums[i] > nums[j]) dp[i] = Math.max(dp[i], dp[j] + 1);
     }
-    if (sum > target || start === candidates.length) return;
-    for (let i = start; i < candidates.length; i++) {
-      current.push(candidates[i]);
-      backtrack(i, current, sum + candidates[i]);
-      current.pop();
-    }
+    max = Math.max(max, dp[i]);
   }
+  return max;
 }
